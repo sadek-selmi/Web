@@ -1,0 +1,6 @@
+admin_homepage:
+    path:     /
+    defaults: { _controller: AdminBundle:Default:index }
+admin_changeRoleAssociation:
+    path:     /makeAssociation/{id}
+    defaults: { _controller: AdminBundle:Default:makeASSOCIATION }

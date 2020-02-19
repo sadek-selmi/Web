@@ -67,10 +67,20 @@
                 <li class="menu-item-has-children">
                     <a href="#">Events</a>
                     <ul class="sub-menu">
-                        <li><a href="{{path('events_show')}}">Events</a></li>
-                   {%if  is_granted('ROLE_ASSOCIATION')  %}
-                        <li><a href="{{path('events_add')}}">Add Event</a></li>
-                    {% endif %}
+                        <li><a href="{{ path('events_show') }}">Events</a></li>
+                        {% if app.user %}
+                            {% if is_granted('ROLE_ASSOCIATION') %}
+                                <li><a href="{{ path('events_add') }}">Add Event<i class="fa-send"></i></a></li>
+
+                            {% else%}
+
+                                <li><a href="{{ path('Formulaire') }}">Add Event<i class="fa-send"></i></a></li>
+                            {% endif %}
+                        {% else %}
+                            <li><a href="{{ path('fos_user_security_login') }}">Add Event<i class="fa-send"></i></a></li>
+
+                        {% endif %}
+
 
                     </ul>
                 <li class="menu-item-has-children">
@@ -113,7 +123,7 @@
                                     {% else %}
                                         <li><a href="{{ path('fos_user_security_login') }}">Sign In</a></li>
                                         <li><a href="{{ path('fos_user_registration_register') }}">Sign Up</a></li>
-                                        <li><a href="{{path('contact')}}">Contact Us</a></li>
+                                        <li><a href="{{path('contacus_homepage')}}">Contact Us</a></li>
                                     {% endif %}
 
                                 </ul>
@@ -178,7 +188,7 @@
 
                             <li><a href="#">Event</a></li>
                             <li><a href="#">Blog</a></li>
-                            <li><a href="{{path('contact')}}">Contact</a></li>
+                            <li><a href="{{path('contacus_homepage')}}">Contact</a></li>
                             <li><a href="{{path('about')}}">About</a></li>
                         </ul>
                     </div>

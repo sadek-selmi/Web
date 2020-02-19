@@ -29,6 +29,28 @@ class Association
     private $nom;
 
     /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\JoinColumn(name="Iduser",referencedColumnName="id")
+     *
+     */
+    private $user;
+    /**
      * @var string
      *
      * @ORM\Column(name="activite", type="string", length=255)

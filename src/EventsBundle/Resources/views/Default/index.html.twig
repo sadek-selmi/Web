@@ -1,5 +1,6 @@
 {% extends  'layout.html.twig' %}
 {% block content %}
+
     <div class="event-breadcrumb">
         <div class="container-fluid">
             <div class="row">
@@ -19,7 +20,22 @@
 
                                 <h1 class="page-title">Events</h1>
                                 <ul class="page-list">
-                                    <li><a href="{{ path('Formulaire') }}">Add Event<i class="fa-send"></i></a></li>
+                                    {% if app.user %}
+                                        {% if is_granted('ROLE_ASSOCIATION') %}
+                                            <li><a href="{{ path('events_add') }}">Add Event<i class="fa-send"></i></a>
+                                            </li>
+
+                                        {% else %}
+
+                                            <li><a href="{{ path('Formulaire') }}">Add Event<i class="fa-send"></i></a>
+                                            </li>
+                                        {% endif %}
+                                    {% else %}
+                                        <li><a href="{{ path('fos_user_security_login') }}">Add Event<i
+                                                        class="fa-send"></i></a></li>
+
+                                    {% endif %}
+
                                     <li><a href="#">Events</a></li>
                                 </ul>
                             </div>
@@ -35,23 +51,23 @@
             <div class="event-slider row">
                 {% for e in events %}
 
-                <div class="single-item">
-                    <div class="item-left">
+                    <div class="single-item">
+                        <div class="item-left">
 
-                        <div class="left">
-                            <div class="time">
-                                <h3>{{ e.start |date("d/m") }}</h3>
-                                <span>{{ e.start|date('H:i') }}</span>
+                            <div class="left">
+                                <div class="time">
+                                    <h3>{{ e.start |date("d/m") }}</h3>
+                                    <span>{{ e.start|date('H:i') }}</span>
+                                </div>
+                                <span class="text">{{ e.name }}</span>
+                                <p>{{ e.description }}</p>
+                                <a href="{{ path('event_details' , {'id':e.id }) }}" class="btn sm-btn">Read More</a>
                             </div>
-                            <span class="text">{{ e.name }}</span>
-                            <p>{{ e.description }}</p>
-                            <a href="{{ path('event_details' , {'id':e.id }) }}" class="btn sm-btn">Read More</a>
+                        </div>
+                        <div class="item-right">
+                            <img src="{{ asset('') }}{{ vich_uploader_asset(e, 'imageFile') }}" alt="event">
                         </div>
                     </div>
-                    <div class="item-right">
-                        <img src="{{ asset('') }}{{ vich_uploader_asset(e, 'imageFile') }}" alt="event">
-                    </div>
-                </div>
                 {% endfor %}
 
             </div>
@@ -94,26 +110,61 @@
                                         <div class="col-lg-7 offset-lg-1 d-flex align-items-center">
                                             <div class="content">
                                                 <span class="text">{{ e.name }}</span>
-                                                <h4>{{ e.start|date }} - {{ e.end|date }},<b>{{ e.location }}</b></h4>
-                                                <p> {{ e.description }}</p>
-                                                <div class="margin-top-30 margin-bottom-30 btn-wrapper desktop-left">
-                                                    {% if app.user %}
-                                                        <a href="{{ path('edit_events',{id:e.id}) }}"
-                                                           class="btn "     ><i class="fa fa-edit"></i>Update</a>
-                                                        <a href="{{ path('delete_events',{id:e.id}) }}" class="btn "><i class="fa fa-remove"></i>Remove</a>
 
-                                                        <a href="{{ path('participer' , {'id':e.id }) }}" class="btn "><i class="fa fa-check-square-o"></i>participate
-                                                    </a>
-                                                    {% endif %}
+                                                <br><br> <b><i class="fa fa-location-arrow"> </i> {{ e.location }}</b>
+                                                <h4>{{ e.start|date }} </h4><h4>{{ e.end|date }}</h4>
+                                                <div >
 
 
-                                                    <a href="#" class="btn "><i class="fa fa-star"></i>
-                                                        Intersted</a>
 
 
-                                                    <a href="{{ path('event_details' , {'id':e.id }) }}"
-                                                       class="btn black-btn"><i class="fa fa-sign-in"></i> Details
-                                                        </a>
+                                                    <div class="col-lg-10 offset-lg-1 margin-bottom-100 margin-top-65 col-12">
+                                                        <div class="d-flex justify-content-md-around flex-column flex-md-row text-center">
+                                                            {% if app.user %}
+                                                            <div class="single-btn text-center">
+
+                                                                <div class="btn-wrapper">
+                                                                    <a href="{{ path('participer' , {'id':e.id }) }}" class="btn btn-element btn-lg btn-second">Participer <strong>{{ e.Participernumber}}</strong></a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="single-btn text-center">
+
+                                                                <div class="btn-wrapper">
+                                                                    <a href="{{ path('Intersted' , {'id':e.id }) }}" class="btn btn-element btn-lg btn-second">Intersted <strong>{{ e.Interstednumber}}</strong></a>
+                                                                </div>
+                                                            </div>
+                                                            {% else %}
+                                                                <div class="single-btn text-center">
+
+                                                                    <div class="btn-wrapper">
+                                                                        <a href="{{ path('fos_user_security_login') }}" class="btn btn-element btn-lg btn-disabled disabled">Intersted <strong>{{ e.Participernumber}}</strong></a>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="single-btn text-center">
+
+                                                                    <div class="btn-wrapper">
+                                                                        <a href="{{ path('fos_user_security_login') }}" class="btn btn-element btn-lg btn-disabled disabled">Participer <strong>{{ e.Participernumber}}</strong></a>
+                                                                    </div>
+                                                                </div>
+
+
+
+
+                                                            {% endif %}
+
+                                                            <div class="single-btn text-center">
+
+                                                                <div class="btn-wrapper">
+                                                                    <a href="{{ path('event_details' , {'id':e.id }) }}" class="btn btn-element btn-lg btn-active">Details</a>
+                                                                </div>
+                                                            </div>
+
+
+
+
+
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -125,12 +176,16 @@
 
 
                     </div>
+
+                </div>
+                <div class="navigation ">
+                    {{ knp_pagination_render(events) }}
                 </div>
             </div>
+
         </div>
-        <div class="navigation">
-            {{ knp_pagination_render(events) }}
-        </div>
+
     </div>
+
 
 {% endblock %}

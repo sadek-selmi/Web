@@ -18,16 +18,7 @@ class DefaultController extends Controller
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
         ]);
     }
-    /**
-     * @Route("/contact", name="contact")
-     */
-    public function contactAction(Request $request)
-    {
 
-        return $this->render('contact.html.twig', [
-
-        ]);
-    }
     /**
      * @Route("/", name="home")
      */

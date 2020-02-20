@@ -35,6 +35,31 @@ class Events
      */
     private $Interstednumber;
     /**
+     * @var int
+     *
+     * @ORM\Column(name="commenternumber", type="bigint" , nullable=true)
+     */
+    private $Commenternumber;
+
+    /**
+     * @return int
+     */
+    public function getCommenternumber()
+    {
+        return $this->Commenternumber;
+    }
+
+    /**
+     * @param int $Commenternumber
+     */
+    public function setCommenternumber($Commenternumber)
+    {
+        $this->Commenternumber = $Commenternumber;
+    }
+
+
+
+    /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
@@ -158,12 +183,7 @@ class Events
      */
     private $theme;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
-     * @ORM\JoinColumn(name="Idassocation",referencedColumnName="id")
-     *
-     */
-    private $assocation;
+
 
     /**
      * @return mixed
@@ -182,20 +202,32 @@ class Events
     }
 
     /**
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\JoinColumn(name="association",referencedColumnName="id")
+     */
+    private $userid;
+
+    /**
      * @return mixed
      */
-    public function getAssocation()
+    public function getUserid()
     {
-        return $this->assocation;
+        return $this->userid;
     }
 
     /**
-     * @param mixed $assocation
+     * @param mixed $userid
      */
-    public function setAssocation($assocation)
+    public function setUserid($userid)
     {
-        $this->assocation = $assocation;
+        $this->userid = $userid;
     }
+
+
+
+
+
 
     /**
      * Get id

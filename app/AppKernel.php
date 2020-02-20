@@ -26,6 +26,8 @@ class AppKernel extends Kernel
             new RentProductsBundle\RentProductsBundle(),
             new SellProductsBundle\SellProductsBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new ContacusBundle\ContacusBundle(),
+
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

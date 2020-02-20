@@ -24,3 +24,12 @@ edit_events:
 delete_events:
   path:     /delete/{id}
   defaults: { _controller: EventsBundle:Default:delete }
+edit_form:
+  path:     /editform/{id}
+  defaults: { _controller: EventsBundle:Default:editfor }
+delete_for:
+  path:     /deleteform/{id}
+  defaults: { _controller: EventsBundle:Default:deletefor }
+Intersted:
+  path:     /Intersted/{id}
+  defaults: { _controller: EventsBundle:Default:Intersted}

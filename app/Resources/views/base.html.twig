@@ -165,19 +165,25 @@
                     <li class="menu-item-has-children">
                         <a href="#">Events</a>
                         <ul class="sub-menu">
-                            <li><a href="{{path('events_show')}}">Events</a></li>
+                            <li><a href="{{ path('events_show') }}">Events</a></li>
+                            {% if app.user %}
+                                {% if is_granted('ROLE_ASSOCIATION') %}
+                                    <li><a href="{{ path('events_add') }}">Add Event<i class="fa-send"></i></a></li>
 
-                            {%if  is_granted('ROLE_ASSOCIATION')  %}
-                            <li><a href="{{path('events_add')}}">Add Event</a></li>
+                                {% else%}
+
+                                    <li><a href="{{ path('Formulaire') }}">Add Event<i class="fa-send"></i></a></li>
+                                {% endif %}
+                            {% else %}
+                                <li><a href="{{ path('fos_user_security_login') }}">Add Event<i class="fa-send"></i></a></li>
+
                             {% endif %}
-
-
                         </ul>
                     <li class="menu-item-has-children">
                         <a href="#">Maintenance</a>
                         <ul class="sub-menu">
-                            <li><a href="maint.html">Find your hero</a></li>
-                            <li><a href="ajouter.html">Add Mechanical</a></li>
+                            <li><a href="{{ path('affiche_mecanicien') }}">Find your hero</a></li>
+                            <li><a href="{{ path('maintenance_ADD') }}">Add Mechanical</a></li>
 
 
                         </ul>
@@ -187,7 +193,7 @@
                     </li>
 
 
-                    <li><a href="{{path('about')}}">About</a></li>
+                    <li><a href="{{ path('about') }}">About</a></li>
 
                 </ul>
             </div>
@@ -208,13 +214,14 @@
                                     <ul id="menu">
                                         {% if app.user %}
                                             <li><a href="{{ path('fos_user_profile_show') }}">Profile</a></li>
+                                            <li><a href="{{ path('contacus_homepage') }}">Contact Us</a></li>
 
                                             <li><a href="{{ path('fos_user_security_logout') }}">Logout</a></li>
 
                                         {% else %}
                                             <li><a href="{{ path('fos_user_security_login') }}">Sign In</a></li>
                                             <li><a href="{{ path('fos_user_registration_register') }}">Sign Up</a></li>
-                                            <li><a href="{{path('contact')}}">Contact Us</a></li>
+                                            <li><a href="{{ path('contacus_homepage') }}">Contact Us</a></li>
                                         {% endif %}
 
                                     </ul>
@@ -400,7 +407,7 @@
                     <div class="col-lg-2 col-md-2">
                         <div class="footer-widget widget">
                             <div class="about_us_widget">
-                                <a href="{{path('home')}}" class="l">
+                                <a href="{{ path('home') }}" class="l">
                                     <img src="{{ asset('front/img/footer-logo.png') }}" alt="footer logo">
                                 </a>
                             </div>
@@ -414,8 +421,8 @@
 
                                 <li><a href="#">Event</a></li>
                                 <li><a href="#">Blog</a></li>
-                                <li><a href="{{path('contact')}}">Contact</a></li>
-                                <li><a href="{{path('about')}}">About</a></li>
+                                <li><a href="{{ path('contacus_homepage') }}">Contact</a></li>
+                                <li><a href="{{ path('about') }}">About</a></li>
                             </ul>
                         </div>
                     </div>
